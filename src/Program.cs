@@ -89,6 +89,14 @@ namespace XAppGroup
         {
             if (args.Contains("--selftest")) { SelfTest.Run(); Shutdown(); return; }
             if (args.Contains("--capture-docs")) { DocScreenshots.Capture(); Shutdown(); return; }
+            if (args.Contains("--generate-showcases"))
+            {
+                int idx = Array.IndexOf(args, "--generate-showcases");
+                string targetDir = idx + 1 < args.Length && !args[idx + 1].StartsWith("-") ? args[idx + 1] : "assets";
+                GenerateShowcases.Run(targetDir);
+                Shutdown();
+                return;
+            }
             _s = Store.Load();
             Settings.Current = _s;
             AppConfig.Load();

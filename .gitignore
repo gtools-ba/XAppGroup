@@ -2,6 +2,7 @@
 [Bb]in/
 [Oo]bj/
 out/
+out_preview/
 
 # Internal documentation & agent configs
 .agents/

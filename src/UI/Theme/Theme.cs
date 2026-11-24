@@ -132,11 +132,13 @@ namespace XAppGroup
         {
             // "System" (System Mica) and "Dark" (Dark Acrylic) use the signature Obsidian Amber aesthetic from screen.png;
             // "Light" (Light Glass) provides a complete high-contrast Light Glass theme.
-            bool light = string.Equals(mode, "Light", StringComparison.OrdinalIgnoreCase);
+            bool light = string.Equals(mode, "Light", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(mode, "Light Glass", StringComparison.OrdinalIgnoreCase)
+                || (mode != null && mode.IndexOf("Light", StringComparison.OrdinalIgnoreCase) >= 0);
             bool dark = !light;
             Dark = dark;
 
-            if (string.Equals(mode, "Dark", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(mode, "Dark", StringComparison.OrdinalIgnoreCase) || string.Equals(mode, "Dark Acrylic", StringComparison.OrdinalIgnoreCase))
                 SetColor(Bg, "#0F1112");
             else if (light)
                 SetColor(Bg, "#F7F7F8");

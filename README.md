@@ -69,15 +69,13 @@ Manage, search, launch, reorder, and configure all your application groups with 
 ### 2. Sleek Taskbar Flyout Launcher
 Clicks on pinned taskbar icons smoothly slide up an elevated flyout launcher right above your taskbar.
 <p align="center">
-  <img src="assets/popup_flyout.png" alt="Elevated Taskbar Flyout" width="70%" />
+  <img src="assets/popup_flyout.png" alt="Elevated Taskbar Flyout" width="92%" />
 </p>
 
 ### 3. Comprehensive Group Editor (Dark Obsidian & Light Glass)
 Customize group names, icons, global hotkeys, and add/remove applications with instant live preview.
 <p align="center">
-  <img src="assets/edit_dark.png" alt="Edit Group Dark Theme" width="48%" />
-  &nbsp;
-  <img src="assets/edit_light.png" alt="Edit Group Light Glass Theme" width="48%" />
+  <img src="assets/edit_showcase.png" alt="Comprehensive Group Editor (Dark Obsidian & Light Glass)" width="92%" />
 </p>
 
 ---

@@ -592,6 +592,7 @@ namespace XAppGroup
             mainContent.Children.Add(optionsCard);
 
             var rootDock = new DockPanel();
+            rootDock.SetBinding(Panel.BackgroundProperty, Theme.Bind("Bg"));
             DockPanel.SetDock(footerBorder, Dock.Bottom);
             rootDock.Children.Add(footerBorder);
             rootDock.Children.Add(mainContent);
