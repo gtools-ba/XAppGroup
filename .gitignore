@@ -1,0 +1,25 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+out/
+!Docs/Admin/realise-v1.2.0/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# System & test logs
+*.log
+*.tmp
+selftest.log
+selftest_result.json
+
+# Scratch & temporary agent files
+scratch/
+.system_generated/
+*.bak
+*.old*

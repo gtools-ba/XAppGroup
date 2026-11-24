@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "skills": {
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "913b9d37d0d54047dd65222bb8c67b2bf04e3cb87dcad1729068d7a8b2c8c396"
+    },
+    "csharp-expert": {
+      "source": "dotnet/skills",
+      "sourceType": "github",
+      "skillPath": "csharp-expert/SKILL.md",
+      "computedHash": "b3a86c6cd037996237fc3cf12de41d4938cdae92ed8be1ff132a315524dd39e9"
+    },
+    "csharp-refactoring": {
+      "source": "dotnet/skills",
+      "sourceType": "github",
+      "skillPath": "csharp-refactoring/SKILL.md",
+      "computedHash": "a5516d690bc0713665870e31b7db6c6d09089c0d1a524482a156e01377ef0d72"
+    },
+    "dotnet-msix": {
+      "source": "wshaddix/dotnet-skills",
+      "sourceType": "github",
+      "skillPath": "dotnet-msix/SKILL.md",
+      "computedHash": "b7bb5ecd19057b3d905b2b7e6a1d0dd08cfdfa487fdda1ba5814cc1ee196f55c"
+    },
+    "wpf-best-practices": {
+      "source": "jcurbelo/skills",
+      "sourceType": "github",
+      "skillPath": "wpf-best-practices/SKILL.md",
+      "computedHash": "4b61ca1d610d065a03258db795177056cb03c1d0341495d3c57cc2490c1bb96b"
+    },
+    "design-system": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "skillPath": "design-system/SKILL.md",
+      "computedHash": "b335d0e957a8241c28e5c2a6c3341fbedd6252a0f5356ccbb52e1ec84db3a00d"
+    },
+    "project-management": {
+      "source": "miles990/claude-software-skills",
+      "sourceType": "github",
+      "skillPath": "project-management/SKILL.md",
+      "computedHash": "dd3b9f0115139cccffa0cd53e577e9756ac560e061e23c6ee8b462d0ea549ab8"
+    },
+    "winui-design": {
+      "source": "microsoft/winappcli",
+      "sourceType": "github",
+      "skillPath": "winui-design/SKILL.md",
+      "computedHash": "4d741256e7e1519a48a0d3e6e5dab85561706f1befe5008e169768c1deb1f26c"
+    },
+    "macos-design-guidelines": {
+      "source": "ehmo/platform-design-skills",
+      "sourceType": "github",
+      "skillPath": "macos-design-guidelines/SKILL.md",
+      "computedHash": "630df25deeb6754ba32fb8c8d4d70977821c524b81c292f68cd8f5ed3335e768"
+    },
+    "macos-hig-designer": {
+      "source": "designnotdrum/skills",
+      "sourceType": "github",
+      "skillPath": "macos-hig-designer/SKILL.md",
+      "computedHash": "0b07985950b9f8ec916fbcc2a83aca24127fa5192c25c3b76b5d4a81dea6ff26"
+    },
+    "desktop-ui-design": {
+      "source": "bateau84/skills",
+      "sourceType": "github",
+      "skillPath": "desktop-ui-design/SKILL.md",
+      "computedHash": "d5462a1af7a16309c8a418876ec7fbd96c033a47f32efcbb500f7a1f93fc0ba8"
+    },
+    "accessibility-a11y": {
+      "source": "indrally/skills",
+      "sourceType": "github",
+      "skillPath": "accessibility-a11y/SKILL.md",
+      "computedHash": "3e7dd9c6ba914a1473407f41f7008ecd2f49a6a1502db94a870489a5de6b5c01"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "frontend-design/SKILL.md",
+      "computedHash": "b8009ae690dfa69edc7f08bb8715f32db8817112cfa4388741dbaf876c237df8"
+    }
+  }
+}

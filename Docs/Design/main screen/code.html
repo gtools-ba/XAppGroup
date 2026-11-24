@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>XAppGroup v2.4 PRO - Windows 11 Fluent Workspace</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            fluent: ['"Segoe UI Variable Display"', '"Segoe UI"', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            kudu: {
+              bg: '#0f1112',
+              surface: '#121415',
+              card: '#1c1f20',
+              cardElevated: '#222627',
+              cardHover: '#262a2c',
+              border: '#2a2e30',
+              borderFaint: 'rgba(255, 255, 255, 0.07)',
+              accent: '#f59e0b',
+              accentLight: '#fbbf24',
+              accentDark: '#d97706',
+              accentMuted: 'rgba(245, 158, 11, 0.15)',
+              accentBadge: '#3d2508',
+              textMuted: '#9ca3af',
+              textSubtle: '#6b7280'
+            },
+            win: {
+              bg: '#0f1112',
+              card: '#1c1f20',
+              cardHover: '#25292b',
+              surface: 'rgba(18, 20, 21, 0.85)',
+              surfaceLight: 'rgba(255, 255, 255, 0.05)',
+              border: 'rgba(255, 255, 255, 0.07)',
+              borderFocus: 'rgba(245, 158, 11, 0.75)',
+              accent: '#f59e0b',
+              accentLight: '#fbbf24',
+              badge: '#2d1e0d',
+              badgeBorder: '#63390c',
+              textMuted: '#9ca3af',
+              textSubtle: '#6b7280'
+            }
+          },
+          boxShadow: {
+            'fluent-card': '0 8px 24px -4px rgba(0, 0, 0, 0.5), 0 2px 6px 0 rgba(0, 0, 0, 0.3)',
+            'fluent-active': '0 0 0 1.5px rgba(245, 158, 11, 0.85), 0 12px 30px -4px rgba(245, 158, 11, 0.25)',
+            'kudu-glow': '0 0 20px -3px rgba(245, 158, 11, 0.25)',
+            'win-flyout': '0 16px 40px -8px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08)'
+          }
+        }
+      }
+    }
+  </script>
+<!-- Fluent UI Base Styles -->
+<style data-purpose="fluent-theme">
+    @import url('https://fonts.cdnfonts.com/css/segoe-ui-variable-static-display');
+
+    body {
+      font-family: 'Segoe UI Variable Display', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Kudu Dark Warm Surface Simulation */
+    .mica-backdrop {
+      background-color: #0f1112;
+      background-image: 
+        radial-gradient(at 10% 15%, rgba(60, 40, 10, 0.15) 0px, transparent 55%),
+        radial-gradient(at 90% 85%, rgba(45, 30, 8, 0.12) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(18, 20, 21, 0.98) 0px, #0f1112 100%);
+    }
+
+    .light .mica-backdrop {
+      background-color: #f7f7f8;
+      background-image: 
+        radial-gradient(at 15% 20%, rgba(254, 243, 199, 0.6) 0px, transparent 55%),
+        radial-gradient(at 85% 80%, rgba(253, 230, 138, 0.4) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, #fafafa 0px, #f0f0f2 100%);
+    }
+
+    /* Acrylic Blur Filter */
+    .win11-acrylic {
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+    }
+
+    /* Windows 11 Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(245, 158, 11, 0.4);
+    }
+    .light ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .light ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.35);
+    }
+  </style>
+<style data-purpose="breakpoint-simulation">
+    /* Classes manipulated dynamically to emulate the 3 specified screen viewports */
+    .viewport-mode-small {
+      max-width: 600px !important;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+    .viewport-mode-medium {
+      max-width: 860px !important;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+    .viewport-mode-large {
+      max-width: 100% !important;
+    }
+  </style>
+</head>
+<body class="bg-[#0b0c0d] text-[#f3f4f6] min-h-screen overflow-x-hidden flex flex-col font-fluent">
+<!-- Application Window Shell Container -->
+<div class="viewport-mode-large flex-1 flex flex-col mica-backdrop relative transition-all duration-300 w-full overflow-hidden border border-white/[0.06]" id="desktop-window-container">
+<!-- BEGIN: Windows 11 Titlebar / Chrome (Kudu Style) -->
+<header class="h-10 px-3.5 flex items-center justify-between border-b border-[#2a2e30]/80 bg-[#0f1112]/90 win11-acrylic select-none text-xs shrink-0 z-30" data-purpose="window-titlebar">
+<!-- Left side: App branding with Kudu-like logo mark -->
+<div class="flex items-center space-x-3.5">
+<!-- Windows 11 Title bar Mac/Win Controls -->
+<div class="flex items-center space-x-2">
+<span class="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e]/40 inline-block cursor-pointer hover:opacity-80 transition"></span>
+<span class="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dea123]/40 inline-block cursor-pointer hover:opacity-80 transition"></span>
+<span class="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29]/40 inline-block cursor-pointer hover:opacity-80 transition"></span>
+</div>
+<!-- App Logo & Version Badge in Kudu Amber Style -->
+<div class="flex items-center space-x-2 pl-1.5 border-l border-white/10">
+<div class="w-5 h-5 rounded-md bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-sm">
+<svg class="w-3.5 h-3.5 text-black font-bold" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+</svg>
+</div>
+<span class="font-bold text-white tracking-tight text-[13px]">XAppGroup</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">v2.4 PRO</span>
+</div>
+</div>
+<!-- Center: Global Search in Kudu style -->
+<div class="flex-1 max-w-md mx-4"><div class="relative flex items-center"><svg class="w-3.5 h-3.5 absolute left-3 text-stone-400 pointer-events-none" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><input class="w-full h-7 pl-8 pr-12 text-xs rounded-lg bg-[#1c1f20] border border-[#2a2e30] text-stone-200 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500/80 transition-all" placeholder="Search groups or apps (Ctrl + F)..." type="text"/><kbd class="absolute right-2 px-1.5 py-0.5 bg-white/[0.06] border border-white/10 rounded text-[9px] text-stone-400 font-mono">Ctrl+F</kbd></div></div>
+<!-- Right Chrome Icons & Windows Controls (matches Kudu native top right) -->
+<div class="flex items-center space-x-1 sm:space-x-2 text-stone-300">
+<button class="p-1.5 rounded-md hover:bg-white/[0.08] text-stone-300 hover:text-white transition" title="Refresh Launcher Daemons">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<button class="p-1.5 rounded-md hover:bg-white/[0.08] text-stone-300 hover:text-white transition" title="Workspace Settings">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<button class="p-1.5 rounded-md hover:bg-white/[0.08] text-stone-300 hover:text-white transition" title="Favorites">
+<svg class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+</svg>
+</button>
+<button class="p-1.5 rounded-md hover:bg-white/[0.08] text-stone-300 hover:text-white transition" title="GitHub Repository">
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24">
+<path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path>
+</svg>
+</button>
+<!-- Windows Native Window Action Buttons (Minimize, Maximize, Close - exactly matching Kudu top right) -->
+<div class="hidden sm:flex items-center pl-2 ml-1 border-l border-white/10 space-x-1">
+<button class="w-7 h-7 flex items-center justify-center rounded hover:bg-white/10 text-stone-400 hover:text-white transition">
+<svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 12h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<button class="w-7 h-7 flex items-center justify-center rounded hover:bg-white/10 text-stone-400 hover:text-white transition">
+<svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><rect height="14" rx="2" stroke-width="2" width="14" x="5" y="5"></rect></svg>
+</button>
+<button class="w-7 h-7 flex items-center justify-center rounded hover:bg-rose-600 hover:text-white text-stone-400 transition-colors">
+<span class="text-sm leading-none">×</span>
+</button>
+</div>
+</div>
+</header>
+<!-- END: Windows 11 Titlebar -->
+<!-- BEGIN: Quick Status / Workspace Utility Bar in Kudu Theme -->
+<div class="px-4 py-2 border-b border-[#2a2e30]/70 bg-[#121415]/90 win11-acrylic flex flex-wrap items-center justify-between gap-y-2 text-xs" data-purpose="workspace-status-bar">
+<div class="flex items-center flex-wrap gap-4 text-stone-300">
+<!-- 17 App Groups Counter with Kudu-style amber badge -->
+<div class="flex items-center space-x-2">
+<span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-[11px] border border-amber-500/30">17</span>
+<span class="text-stone-300 font-medium">App Groups</span>
+</div>
+<!-- 199 Configured Launchers -->
+<div class="flex items-center space-x-1.5 pl-2 border-l border-white/10">
+<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="font-bold text-white">199</span>
+<span class="text-stone-400">Configured Launchers</span>
+</div>
+<!-- Background Daemon Active (Amber / Emerald indicator) -->
+<div class="flex items-center space-x-2 pl-2 border-l border-white/10">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+</span>
+<span class="text-amber-400 font-medium">Background Daemon Active</span>
+</div>
+</div>
+<!-- Right Action: Configure Hotkeys -->
+<button class="inline-flex items-center space-x-1.5 text-amber-400 hover:text-amber-300 font-medium transition cursor-pointer group">
+<svg class="w-3.5 h-3.5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Configure Hotkeys</span>
+</button>
+</div>
+<!-- END: Quick Status / Workspace Utility Bar -->
+<!-- BEGIN: Main Multi-Pane Layout Structure -->
+<main class="flex-1 flex overflow-hidden relative" data-purpose="fluent-main-workspace">
+<!-- SECTION 2 (Center Pane): Primary Workspace Canvas -->
+<section class="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-6 space-y-4" data-purpose="section-workspace-canvas">
+<div class="max-w-4xl mx-auto space-y-4 pb-6">
+<!-- CARD 1: Group 1 (Kudu Inactive Card Style: #1c1f20, subtle border, warm amber icon badge) -->
+<article class="rounded-xl border border-[#2a2e30] bg-[#1c1f20] hover:bg-[#222627] hover:border-[#383d40] transition-all duration-200 p-4 sm:p-5 shadow-fluent-card relative group">
+<div class="flex items-center justify-between gap-3 pb-4 border-b border-white/[0.06]">
+<div class="flex items-center space-x-3.5">
+<!-- Warm Amber Icon Container -->
+<div class="w-12 h-12 rounded-xl bg-[#28251e] border border-amber-500/25 flex items-center justify-center shrink-0 shadow-inner">
+<svg class="w-6 h-6 text-amber-400" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 2C7.58 2 4 5.58 4 10c0 2.65 1.28 4.99 3.25 6.47V19c0 .55.45 1 1 1h7.5c.55 0 1-.45 1-1v-2.53C18.72 14.99 20 12.65 20 10c0-4.42-3.58-8-8-8zm-2 19c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-.5H10v.5zm4.84-6.4l-.84.6V18h-4v-2.8l-.84-.6C5.69 13.52 5 11.83 5 10c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.83-.69 3.52-2.16 4.6z"></path>
+</svg>
+</div>
+<div>
+<div class="flex items-center flex-wrap gap-2">
+<h3 class="font-bold text-[#f3f4f6] text-base tracking-tight">Group 1</h3>
+<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/30">7 apps</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-mono bg-[#121415] text-stone-300 border border-[#2a2e30]">Win + Shift + 4</span>
+</div>
+<p class="text-xs text-[#9ca3af] mt-1 line-clamp-1">Primary workspace stack: App Group, LocalSend, Telegram Air, Gemini, UniGetU...</p>
+</div>
+</div>
+<!-- Kudu Dark Button with subtle border and warm text -->
+<div class="flex items-center shrink-0">
+<button class="px-4 py-2 rounded-lg bg-[#262a2c] hover:bg-[#2f3436] text-amber-400 hover:text-amber-300 border border-[#3a3f42] text-xs font-semibold flex items-center space-x-2 transition-all hover:scale-[1.02] active:scale-[0.98]">
+<svg class="w-3.5 h-3.5 fill-current" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+<span>Launch</span>
+</button>
+</div>
+</div>
+<!-- Sub-tray App Icons in sleek Kudu dark rounded tiles with subtle shortcut arrow -->
+<div class="pt-4 flex items-center flex-wrap gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer" title="App Group Manager"><svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-amber-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer" title="LocalSend"><svg class="w-4 h-4 text-stone-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer" title="Telegram Air"><svg class="w-4 h-4 text-stone-200" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer" title="Gemini"><svg class="w-4 h-4 text-amber-300" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2L14.4 7.6L20 10L14.4 12.4L12 18L9.6 12.4L4 10L9.6 7.6L12 2Z"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-amber-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer" title="UniGetUI"><svg class="w-4 h-4 text-stone-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer" title="ChatGPT"><svg class="w-4 h-4 text-stone-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l2-1v-2.5M18 18l-2-1v-2.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer" title="FancyZones"><svg class="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+</div>
+</article>
+<!-- CARD 2: abdou (ACTIVE / HIGHLIGHTED CARD IN KUDU AMBER STYLE) -->
+<article class="rounded-xl border-2 border-amber-500/90 bg-[#1c1f20] hover:bg-[#222627] transition-all duration-200 p-4 sm:p-5 shadow-fluent-active relative overflow-hidden group">
+<!-- Left amber accent indicator strip matching Kudu sidebar active indicator -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-amber-400 via-amber-500 to-amber-600 shadow-[0_0_12px_#f59e0b]"></div>
+<div class="flex items-center justify-between gap-3 pb-4 border-b border-amber-500/20">
+<div class="flex items-center space-x-3.5 pl-1.5">
+<!-- Kudu Gold/Amber Icon Container -->
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-950/60 border border-amber-500/40 flex items-center justify-center shrink-0 shadow-lg">
+<svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</div>
+<div>
+<div class="flex items-center flex-wrap gap-2">
+<h3 class="font-bold text-white text-base tracking-tight">abdou</h3>
+<!-- Kudu style amber pill badge (matching Software '32' badge) -->
+<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40">11 apps</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-mono bg-[#121415] text-stone-200 border border-amber-500/30">Win + Shift + 6</span>
+</div>
+<p class="text-xs text-stone-300 mt-1 line-clamp-1">Primary workspace stack: App Group, LocalSend, Gemini, UniGetUI, ChatGPT -...</p>
+</div>
+</div>
+<!-- Primary Vibrant Warm Amber "Launch All" Button strictly matching Kudu's 'Explore Kudu Cloud' CTA -->
+<div class="flex items-center shrink-0 pl-1.5">
+<button class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-stone-950 font-bold text-xs flex items-center space-x-2 shadow-md shadow-amber-900/30 transition-all hover:scale-[1.03] active:scale-[0.98]">
+<svg class="w-3.5 h-3.5 fill-current" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+<span>Launch All</span>
+</button>
+</div>
+</div>
+<!-- Sub-tray with Kudu dark tiles -->
+<div class="pt-4 pl-1.5 flex items-center flex-wrap gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-amber-500/40 flex items-center justify-center relative hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-amber-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-stone-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-amber-300" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2L14.4 7.6L20 10L14.4 12.4L12 18L9.6 12.4L4 10L9.6 7.6L12 2Z"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-amber-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-stone-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-stone-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l2-1v-2.5M18 18l-2-1v-2.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><span class="text-xs font-mono font-bold text-amber-400">AHK</span><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-amber-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><span class="text-xs font-mono font-bold text-amber-400">&gt;_</span><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-amber-400">↗</span></div>
+<div class="text-xs font-semibold text-stone-400 pl-1 hover:text-amber-400 cursor-pointer select-none transition-colors">+3</div>
+</div>
+</article>
+<!-- CARD 3: abdou - Copy -->
+<article class="rounded-xl border border-[#2a2e30] bg-[#1c1f20] hover:bg-[#222627] hover:border-[#383d40] transition-all duration-200 p-4 sm:p-5 shadow-fluent-card relative group">
+<div class="flex items-center justify-between gap-3 pb-4 border-b border-white/[0.06]">
+<div class="flex items-center space-x-3.5">
+<div class="w-12 h-12 rounded-xl bg-[#28251e] border border-amber-500/25 flex items-center justify-center shrink-0 shadow-inner">
+<svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</div>
+<div>
+<div class="flex items-center flex-wrap gap-2">
+<h3 class="font-bold text-[#f3f4f6] text-base tracking-tight">abdou - Copy</h3>
+<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/30">12 apps</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-mono bg-[#121415] text-stone-300 border border-[#2a2e30]">Win + Shift + 6</span>
+</div>
+<p class="text-xs text-[#9ca3af] mt-1 line-clamp-1">Primary workspace stack: App Group, LocalSend, Telegram Air, Gemini, UniGetU...</p>
+</div>
+</div>
+<div class="flex items-center shrink-0">
+<button class="px-4 py-2 rounded-lg bg-[#262a2c] hover:bg-[#2f3436] text-amber-400 hover:text-amber-300 border border-[#3a3f42] text-xs font-semibold flex items-center space-x-2 transition-all hover:scale-[1.02] active:scale-[0.98]">
+<svg class="w-3.5 h-3.5 fill-current" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+<span>Launch</span>
+</button>
+</div>
+</div>
+<div class="pt-4 flex items-center flex-wrap gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-amber-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-stone-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-stone-200" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-amber-300" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2L14.4 7.6L20 10L14.4 12.4L12 18L9.6 12.4L4 10L9.6 7.6L12 2Z"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-amber-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-stone-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-stone-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l2-1v-2.5M18 18l-2-1v-2.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><svg class="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-stone-400">↗</span></div>
+<div class="w-9 h-9 rounded-lg bg-[#121415] border border-[#2a2e30] flex items-center justify-center relative hover:border-amber-500/50 hover:scale-105 transition cursor-pointer"><span class="text-xs font-mono font-bold text-amber-400">AHK</span><span class="absolute bottom-0.5 right-0.5 w-2 h-2 text-[8px] flex items-center justify-center text-amber-400">↗</span></div>
+<div class="text-xs font-semibold text-stone-400 pl-1 hover:text-amber-400 cursor-pointer select-none transition-colors">+4</div>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- END: Main Multi-Pane Layout Structure -->
+<!-- BEGIN: Pro Tip Banner in Kudu Theme -->
+<div class="px-4 py-2.5 bg-[#171a1b] border-t border-b border-[#2a2e30] text-xs flex items-center justify-between z-20" data-purpose="pro-tip-banner">
+<div class="flex items-center space-x-2.5 overflow-hidden">
+<span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/30">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</span>
+<p class="text-stone-300 truncate">
+<span class="font-bold text-amber-400">Pro Tip:</span> Drag a group's icon directly onto your 
+          <span class="underline decoration-amber-400 underline-offset-2 text-white font-medium cursor-pointer hover:text-amber-300">Windows Taskbar</span> or 
+          <span class="underline decoration-amber-400 underline-offset-2 text-white font-medium cursor-pointer hover:text-amber-300">Desktop</span> to create an instant 1-click launcher.
+        </p>
+</div>
+<button class="text-stone-400 hover:text-white transition ml-3 shrink-0 text-xs font-medium" onclick="this.parentElement.remove()">
+        Dismiss
+      </button>
+</div>
+<!-- END: Pro Tip Banner -->
+<!-- BEGIN: Bottom Action Dock in Kudu Theme -->
+<footer class="h-14 px-4 bg-[#121415]/95 win11-acrylic border-t border-[#2a2e30] flex items-center justify-between shrink-0 select-none z-30" data-purpose="workspace-bottom-dock">
+<!-- Left Controls: + New Group, Edit, Copy, Share, Delete -->
+<div class="flex items-center space-x-1.5 sm:space-x-2">
+<!-- "+ New Group" Primary Amber Button -->
+<button class="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-stone-950 font-bold text-xs flex items-center space-x-2 shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+<span class="hidden sm:inline">New Group</span>
+</button>
+<!-- Edit Icon Button -->
+<button class="w-8 h-8 rounded-lg bg-[#1c1f20] hover:bg-[#25292b] text-stone-300 hover:text-white border border-[#2a2e30] flex items-center justify-center transition" title="Edit Group">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- Duplicate / Copy Icon Button -->
+<button class="w-8 h-8 rounded-lg bg-[#1c1f20] hover:bg-[#25292b] text-stone-300 hover:text-white border border-[#2a2e30] flex items-center justify-center transition" title="Clone Group">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- Export / Share Icon Button -->
+<button class="w-8 h-8 rounded-lg bg-[#1c1f20] hover:bg-[#25292b] text-stone-300 hover:text-white border border-[#2a2e30] flex items-center justify-center transition" title="Export Configuration">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- Trash / Delete Icon Button -->
+<button class="w-8 h-8 rounded-lg bg-[#1c1f20] hover:bg-rose-950/60 hover:border-rose-700/50 text-stone-300 hover:text-rose-300 border border-[#2a2e30] flex items-center justify-center transition" title="Delete Selected Group">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<!-- Right Controls: 'Test Runner' & 'System (Mica)' switcher in Kudu Dark Pill Style -->
+<div class="flex items-center space-x-2 sm:space-x-3">
+<!-- Test Runner Button in Kudu Dark Style -->
+<button class="px-3 py-1.5 rounded-lg bg-[#1c1f20] hover:bg-[#25292b] text-amber-400 border border-[#2a2e30] text-xs font-medium flex items-center space-x-1.5 transition">
+<svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="hidden sm:inline">Test Runner</span>
+</button>
+<!-- System (Mica) Selector Dropdown -->
+<div class="relative">
+<button class="px-2.5 py-1.5 rounded-lg bg-[#1c1f20] hover:bg-[#25292b] text-stone-200 border border-[#2a2e30] text-xs font-medium flex items-center space-x-2 transition" onclick="toggleTheme()">
+<span id="mica-status-text">System (Mica)</span>
+<svg class="w-3.5 h-3.5 text-stone-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+</footer>
+<!-- END: Bottom Action Dock -->
+</div>
+<!-- BEGIN: Interactive Behavior Script -->
+<script data-purpose="viewport-mode-switcher">
+    const container = document.getElementById('desktop-window-container');
+
+    // Mica Mode Switcher (Dark Mica / Light Mica / System Mica)
+    let currentTheme = 'dark';
+    function toggleTheme() {
+      const html = document.documentElement;
+      const micaStatus = document.getElementById('mica-status-text');
+
+      if (currentTheme === 'dark') {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        currentTheme = 'light';
+        if (micaStatus) micaStatus.textContent = 'Mica (Light)';
+      } else {
+        html.classList.add('dark');
+        html.classList.remove('light');
+        currentTheme = 'dark';
+        if (micaStatus) micaStatus.textContent = 'System (Mica)';
+      }
+    }
+  </script>
+<!-- END: Interactive Behavior Script -->
+</body></html>
