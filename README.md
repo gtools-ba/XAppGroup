@@ -14,6 +14,10 @@
   <b>Declutter your Windows workspace. Group related applications into sleek, animated flyout launchers pinned right to your Taskbar or Desktop.</b>
 </p>
 
+<p align="center">
+  <img src="assets/demo.gif" alt="XAppGroup Interactive Flyout & Global Hotkey Demo" width="90%" />
+</p>
+
 ---
 
 ## 🌟 Overview

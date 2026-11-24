@@ -97,6 +97,14 @@ namespace XAppGroup
                 Shutdown();
                 return;
             }
+            if (args.Contains("--generate-demo-gif"))
+            {
+                int idx = Array.IndexOf(args, "--generate-demo-gif");
+                string targetFile = idx + 1 < args.Length && !args[idx + 1].StartsWith("-") ? args[idx + 1] : "assets/demo.gif";
+                GenerateDemoGif.Run(targetFile);
+                Shutdown();
+                return;
+            }
             _s = Store.Load();
             Settings.Current = _s;
             AppConfig.Load();
