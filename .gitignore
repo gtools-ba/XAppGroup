@@ -17,6 +17,8 @@ out/
 *.tmp
 selftest.log
 selftest_result.json
+.testdata/
+test-data/
 
 # Scratch & temporary agent files
 scratch/
