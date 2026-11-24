@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Docs/Admin/assets/banner.png" alt="XAppGroup Hero Banner" width="100%" />
+  <img src="assets/banner.png" alt="XAppGroup Hero Banner" width="100%" />
 </p>
 
 <p align="center">
@@ -63,21 +63,21 @@
 ### 1. Main Management Dashboard
 Manage, search, launch, reorder, and configure all your application groups with real-time card statistics.
 <p align="center">
-  <img src="Docs/Admin/assets/main_screen.png" alt="Main Management Dashboard" width="92%" />
+  <img src="assets/main_screen.png" alt="Main Management Dashboard" width="92%" />
 </p>
 
 ### 2. Sleek Taskbar Flyout Launcher
 Clicks on pinned taskbar icons smoothly slide up an elevated flyout launcher right above your taskbar.
 <p align="center">
-  <img src="Docs/Admin/assets/popup_flyout.png" alt="Elevated Taskbar Flyout" width="70%" />
+  <img src="assets/popup_flyout.png" alt="Elevated Taskbar Flyout" width="70%" />
 </p>
 
 ### 3. Comprehensive Group Editor (Dark Obsidian & Light Glass)
 Customize group names, icons, global hotkeys, and add/remove applications with instant live preview.
 <p align="center">
-  <img src="Docs/Admin/assets/edit_dark.png" alt="Edit Group Dark Theme" width="48%" />
+  <img src="assets/edit_dark.png" alt="Edit Group Dark Theme" width="48%" />
   &nbsp;
-  <img src="Docs/Admin/assets/edit_light.png" alt="Edit Group Light Glass Theme" width="48%" />
+  <img src="assets/edit_light.png" alt="Edit Group Light Glass Theme" width="48%" />
 </p>
 
 ---

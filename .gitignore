@@ -2,7 +2,12 @@
 [Bb]in/
 [Oo]bj/
 out/
-!Docs/Admin/realise-v1.2.0/
+
+# Internal documentation & agent configs
+.agents/
+.claude/
+Docs/
+skills-lock.json
 
 # Visual Studio / VS Code
 .vs/
